@@ -21,54 +21,71 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
       final publishedDate = article.publishedAt?.toLocal().toString().split(
         ' ',
       )[0];
-      return ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(16.0)),
-        child: Stack(
-          children: <Widget>[
-            CachedNetworkImage(
-              imageUrl: article.urlToImage ?? '',
-              fit: BoxFit.cover,
-              width: 1000.0,
-              height: 280.0,
-            ),
-            Positioned(
-              bottom: 0.0,
-              left: 0.0,
-              right: 0.0,
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color.fromARGB(200, 0, 0, 0),
-                      Color.fromARGB(0, 0, 0, 0),
+      return InkWell(
+        onTap: () {
+          Navigator.pushNamed(context, '/article-details', arguments: article);
+        },
+        child: ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(16.0)),
+          child: Stack(
+            children: <Widget>[
+              CachedNetworkImage(
+                imageUrl: article.urlToImage ?? '',
+                fit: BoxFit.cover,
+                width: 1000.0,
+                height: 280.0,
+                httpHeaders: const {
+                  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36',
+                  'Accept':
+                      'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
+                },
+                placeholder: (context, url) =>
+                    const Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) =>
+                    const Icon(Icons.broken_image, size: 50),
+              ),
+              Positioned(
+                bottom: 0.0,
+                left: 0.0,
+                right: 0.0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromARGB(200, 0, 0, 0),
+                        Color.fromARGB(0, 0, 0, 0),
+                      ],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                    ),
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 10.0,
+                    horizontal: 20.0,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${article.source?.name ?? ''} . ${publishedDate ?? ''}",
+                        style: TextStyle(color: Colors.white, fontSize: 13.0),
+                      ),
+                      Text(
+                        article.title ?? '',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ],
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
                   ),
                 ),
-                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${article.source?.name ?? ''} . ${publishedDate ?? ''}",
-                      style: TextStyle(color: Colors.white, fontSize: 13.0),
-                    ),
-                    Text(
-                      article.title ?? '',
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
     }).toList();

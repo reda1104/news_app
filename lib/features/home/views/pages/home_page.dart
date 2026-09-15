@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/core/utils/theme/app_colors.dart';
+import 'package:news_app/core/views/widgets/app_bar_button.dart';
+import 'package:news_app/core/views/widgets/app_drawer.dart';
 import 'package:news_app/features/home/cubit/home_cubit.dart';
 import 'package:news_app/features/home/views/widgets/custom_carousel_slider.dart';
 import 'package:news_app/features/home/views/widgets/recommendationListWidget.dart';
 import 'package:news_app/features/home/views/widgets/title_headline_widget.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -18,7 +27,39 @@ class HomePage extends StatelessWidget {
         return homeCubit;
       },
       child: Scaffold(
-        appBar: AppBar(title: Text('Home Page')),
+        key: _scaffoldKey,
+        appBar: AppBar(
+          leading: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: AppBarButton(
+              iconData: Icons.menu,
+              onPressed: () {
+                _scaffoldKey.currentState!.openDrawer();
+              },
+            ),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AppBarButton(
+                iconData: Icons.search,
+                onPressed: () {
+                  // Handle search button press
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AppBarButton(
+                iconData: Icons.notifications,
+                onPressed: () {
+                  // Handle notifications button press
+                },
+              ),
+            ),
+          ],
+        ),
+        drawer: AppDrawer(),
         body: Builder(
           builder: (context) {
             final homeCubit = BlocProvider.of<HomeCubit>(context);
