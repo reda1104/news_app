@@ -1,11 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-class TopHeadlinesApiResponse {
+class NewsApiResponse {
   final String status;
   final int totalResults;
   final List<Article>? articles;
 
-  const TopHeadlinesApiResponse({
+  const NewsApiResponse({
     required this.status,
     required this.totalResults,
     this.articles,
@@ -20,8 +20,8 @@ class TopHeadlinesApiResponse {
     };
   }
 
-  factory TopHeadlinesApiResponse.fromMap(Map<String, dynamic> map) {
-    return TopHeadlinesApiResponse(
+  factory NewsApiResponse.fromMap(Map<String, dynamic> map) {
+    return NewsApiResponse(
       status: map['status'] as String,
       totalResults: map['totalResults'] as int,
       articles: map['articles'] != null

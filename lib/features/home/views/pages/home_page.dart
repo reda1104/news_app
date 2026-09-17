@@ -44,6 +44,7 @@ class _HomePageState extends State<HomePage> {
               child: AppBarButton(
                 iconData: Icons.search,
                 onPressed: () {
+                  Navigator.pushNamed(context, '/search');
                   // Handle search button press
                 },
               ),
