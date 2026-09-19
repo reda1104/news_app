@@ -21,16 +21,30 @@ class _SearchPageState extends State<SearchPage> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 16.0),
+                Text(
+                  'Discover',
+                  style: Theme.of(context).textTheme.headlineLarge!
+                      .copyWith(fontWeight: FontWeight.bold, fontSize: 50),
+                ),
+                Text(
+                  'News from all around the world',
+                  style: Theme.of(context).textTheme.bodyLarge!
+                      .copyWith(color: AppColors.grey),
+                ),
+              ],
+            ),
             SizedBox(height: 12.0),
             TextField(
               controller: _searchController,
               decoration: InputDecoration(
                 hintText: 'Search by title',
                 prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
                 suffixIcon: BlocBuilder<SearchCubit, SearchState>(
                   bloc: searchCubit,
                   buildWhen: (previous, current) =>
@@ -96,9 +110,10 @@ class _SearchPageState extends State<SearchPage> {
                 }
                 return Expanded(
                   child: Center(
-                    child: const Text(
-                      'Search for news articles...',
-                      style: TextStyle(fontSize: 16.0),
+                    child: Text(
+                      'Search for News',
+                      style: Theme.of(context).textTheme.titleLarge!
+                          .copyWith(fontWeight: FontWeight.w500),
                     ),
                   ),
                 ); // Return an empty widget for the initial state
