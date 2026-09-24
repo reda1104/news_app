@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/core/utils/route/app_routes.dart';
 import 'package:news_app/core/utils/theme/app_colors.dart';
+import 'package:news_app/features/favorites/cubit/favorites_cubit.dart';
 import 'package:news_app/features/favorites/views/pages/favorites_page.dart';
 
 class AppDrawer extends StatelessWidget {

@@ -19,7 +19,7 @@ class ArticleDetailsPage extends StatelessWidget {
           CachedNetworkImage(
             imageUrl: article.urlToImage ?? '',
             width: double.infinity,
-            height: size.height * 0.5,
+            height: size.height * 0.6,
             fit: BoxFit.cover,
             placeholder: (context, url) =>
                 const Center(child: CircularProgressIndicator()),
@@ -129,52 +129,61 @@ class ArticleDetailsPage extends StatelessWidget {
                         horizontal: 16.0,
                         vertical: 16.0,
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 20.0,
-                                backgroundImage: CachedNetworkImageProvider(
-                                  article.urlToImage ?? '',
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: 20.0,
+                                  backgroundImage: CachedNetworkImageProvider(
+                                    article.urlToImage ?? '',
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(width: 8.0),
-                              SizedBox(
-                                width: size.width * 0.8,
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      maxLines: 1,
-                                      article.author ?? 'Unknown Author',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium
-                                          ?.copyWith(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                    ),
-                                    const SizedBox(width: 4.0),
-                                    Icon(
-                                      Icons.verified,
-                                      color: AppColors.primaryColor,
-                                      size: 16.0,
-                                    ),
-                                  ],
+
+                                const SizedBox(width: 8.0),
+
+                                // Give the author section all remaining available width
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          article.author ?? 'Unknown Author',
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                      ),
+
+                                      const SizedBox(width: 4.0),
+
+                                      Icon(
+                                        Icons.verified,
+                                        color: AppColors.primaryColor,
+                                        size: 16.0,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16.0),
-                          Text(
-                            (article.description ??
-                                    'No description available') +
-                                ("\n\n") +
-                                (article.content ?? 'No content available'),
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
-                        ],
+                              ],
+                            ),
+                            const SizedBox(height: 16.0),
+                            Text(
+                              (article.description ??
+                                      'No description available') +
+                                  ("\n\n") +
+                                  (article.content ?? 'No content available'),
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
