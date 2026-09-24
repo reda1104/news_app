@@ -7,7 +7,7 @@ class TopHeadlinesBody {
   final int? pageSize;
   final int? page;
 
-  new({
+  TopHeadlinesBody({
     this.country = 'us',
     this.category,
     this.q,

@@ -1,5 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:hive/hive.dart';
+import 'package:news_app/core/models/article_model.dart';
+
 class NewsApiResponse {
   final String status;
   final int totalResults;
@@ -30,79 +33,5 @@ class NewsApiResponse {
                 .toList()
           : null,
     );
-  }
-}
-
-class Article {
-  final Source? source;
-  final String? author;
-  final String? title;
-  final String? description;
-  final String? url;
-  final String? urlToImage;
-  final DateTime? publishedAt;
-  final String? content;
-
-  const Article({
-    this.source,
-    this.author,
-    this.title,
-    this.description,
-    this.url,
-    this.urlToImage,
-    this.publishedAt,
-    this.content,
-  });
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'source': source?.toMap(),
-      'author': author,
-      'title': title,
-      'description': description,
-      'url': url,
-      'urlToImage': urlToImage,
-      'publishedAt': publishedAt?.toIso8601String(),
-      'content': content,
-    };
-  }
-
-  factory Article.fromMap(Map<String, dynamic> map) {
-    return Article(
-      source: map['source'] != null
-          ? Source.fromMap(map['source'] as Map<String, dynamic>)
-          : null,
-
-      author: map['author'] as String?,
-
-      title: map['title'] as String?,
-
-      description: map['description'] as String?,
-
-      url: map['url'] as String?,
-
-      urlToImage: map['urlToImage'] as String?,
-
-      publishedAt: map['publishedAt'] != null
-          ? DateTime.parse(map['publishedAt'] as String)
-          : null,
-
-      content: map['content'] as String?,
-    );
-  }
-}
-
-class Source {
-  final String? id;
-  final String? name;
-
-  const Source({this.id, this.name});
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{'id': id, 'name': name};
-  }
-
-  factory Source.fromMap(Map<String, dynamic> map) {
-    return Source(id: map['id'] as String?, name: map['name'] as String?);
   }
 }

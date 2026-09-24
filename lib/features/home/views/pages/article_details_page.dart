@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/core/models/article_model.dart';
 import 'package:news_app/core/utils/theme/app_colors.dart';
 import 'package:news_app/core/views/widgets/app_bar_button.dart';
 import 'package:news_app/core/models/news_api_response.dart';
@@ -54,7 +55,7 @@ class ArticleDetailsPage extends StatelessWidget {
                   Row(
                     children: [
                       AppBarButton(
-                        iconData: Icons.bookmark_border,
+                        iconData: Icons.favorite_border,
                         onPressed: () {},
                       ),
                       const SizedBox(width: 8.0),
@@ -140,16 +141,28 @@ class ArticleDetailsPage extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(width: 8.0),
-                              Text(
-                                article.author ?? 'Unknown Author',
-                                style: Theme.of(context).textTheme.bodyMedium
-                                    ?.copyWith(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(width: 4.0),
-                              Icon(
-                                Icons.verified,
-                                color: AppColors.primaryColor,
-                                size: 16.0,
+                              SizedBox(
+                                width: size.width * 0.8,
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      maxLines: 1,
+                                      article.author ?? 'Unknown Author',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                    const SizedBox(width: 4.0),
+                                    Icon(
+                                      Icons.verified,
+                                      color: AppColors.primaryColor,
+                                      size: 16.0,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
